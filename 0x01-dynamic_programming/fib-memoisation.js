@@ -76,3 +76,39 @@ const lib = () => {
  * therefore, the time and space complexity is, more or less, between dib and lib
  * which means that fib has  o(n) time complexity and o(2^n) space complexity
  */
+
+//memoisation -> store the intermediate results so you can resuse them
+const fibMemo = (n, memo={}) => {
+    if(n in memo) return memo[n]
+    if(n<=2) return 1
+    memo[n] = fib(n-1, memo) + fib(n-2, memo)
+    return memo[n]
+}
+for (let i=0; i<arr.length; ++i){
+    console.log(`fibMemo ${arr[i]}: ${fibMemo(arr[i])}`)
+}
+
+/**
+ * fibMemo has 2 params: n, the nth fib number and memo an object (default, empty)
+ * new base case: check if n is in memo. if yes, return memo[n]
+ * base case: check if n <=2. if yes, return 1
+ * key n of object memo, if not base case, is the sum of the nth - 1 and nth - 2 terms
+ *      notice how memo is passed to the recursive call. it is a cache of intrmediate values
+ * return key n of memo once done 
+ */
+
+/**
+ * say you want to evaluate fibMemo(5)...
+ * call fibMemo(5); empty object
+ * level 0: fibMemo(5) calls fibMemo(4) and fibMemo(3)
+ * level 1: LHS: fibMemo(4) calls fibMemo(3) and fibMemo(2)[base case], RHS fibMemo(3) calls fibMemo(2)[base case] and fibMemo(1)[base case]
+ * level 2: LHS: fibMemo(3) calls fibMemo(2)[base case] and fibMemo(1)[base case]
+ * 
+ * ####################################
+ * level 2: LHS: fibMemo(2) returns 1 and fibMemo(1) returns 1. memo is set to {"3": 2}
+ * level 1: LHS: fibMemo(3) is fetched from memo and fibMemo(2) returns 1. memo is set to {"3": 2, "4": 3}, RHS: fibMemo(3) is fetched from memo and fibMemo(2) returns 1. fibMemo(3) is already in memo
+ * level 0: LHS: fibMemo(4) is fetched from memo, RHS:  fibMemo(3) is fetched from memo. memo is set to {"3": 2, "4": 3, "5", 5}. return memo[5] which is 5
+ * fibMemo(5) returns 5
+ * 
+ * time complexity reduces from O(2^n) to O(n)
+ */
