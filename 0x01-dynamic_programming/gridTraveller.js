@@ -111,4 +111,31 @@ arr.forEach(obj => {
  * why? You make (n+m) function calls, meaning that the max depth of the recursion
  * tree is (n+m-1). Throw away the constant when doing big O, therefore, space complexity
  * is O(n+m)
+ * 
+ * notice gridTraveller(m, n) = gridTraveller(n, m); that is, transposing the grid foes not
+ * change the number of ways to achieve the goal
+ */
+
+const gridTravellerMemo = (m, n, memo={}) => {
+    const key = `${m},${n}`
+
+    if(key in memo) return memo[key]
+    if(m===1 && n===1) return 1
+    if(m===0 || n===0) return 0
+
+    memo[key] = gridTravellerMemo(m-1, n, memo) + gridTravellerMemo(m, n-1, memo)
+    return memo[key]
+}
+
+/**
+ * Notice it runs quicker.
+ * Why? Relaa...x, uncle Frankie's here for you.
+ * Take gridTraveller(4, 3).
+ * possible values of m are {0, 1, 2, 3, 4}
+ * possible values of n are {0, 1, 2, 3}
+ * 
+ * recall, we are memoising; that is, we cache results to avoid double work,
+ * therefore, the number of possible distinct combinations is m * n.
+ * 
+ * This is how we get to O(m*n) time complexity; space complexity does not change
  */
