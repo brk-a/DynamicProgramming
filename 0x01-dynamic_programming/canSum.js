@@ -133,4 +133,55 @@ arr.forEach(obj => {
     console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${canSum(obj.targetSum, obj.numbers)}`);
 })
 
-/**canSum has exponential time complexity and constant space complexity*/
+/**canSum has exponential time complexity and constant space complexity
+ * 
+ * let m be the target sum and n be the length of the array of candidates
+ * 
+ * worst-case scenario max-depth: the array contains `1` (algo will subtract 1 at each edge until base case)
+ * therefore, the worst-case max depth of the tree is m
+ * 
+ * worst-case scenario branching factor: at level 1, the algo must branch n times; one for each member of the
+ * array. may or may not happen at other levels, therefore, worst-case scenario branching factor is n
+ * 
+ * time complexity is O(n^m) and space complexity is O(m)
+ * 
+*/
+
+const canSumMemo = (targetSum, numbers, memo={}) => {
+    if (!numbers ||!Array.isArray(numbers)) throw new Error('Invalid input')
+
+    if(targetSum in memo) return memo[targetSum]
+    if(targetSum===0) return true
+    if(targetSum<0) return false
+
+    for(let i of numbers){
+        const remainder = targetSum - i
+        if(canSum(remainder, numbers, memo)===true){
+            memo[targetSum] = true
+            return true
+        }
+    }
+
+    memo[targetSum] = false
+    return false
+}
+
+arr.forEach(obj => {
+    console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${canSumMemo(obj.targetSum, obj.numbers)}`);
+})
+
+/**canSumMemo has constant time complexity and constant space complexity
+ * 
+ * let m be the target sum and n be the length of the array of candidates
+ * 
+ * worst-case scenario max-depth: the array contains `1` (algo will subtract 1 at each edge until base case)
+ * therefore, the worst-case max depth of the tree is m
+ * 
+ * worst-case scenario branching factor: at level 1, the algo must branch n times; one for each member of the
+ * array. may or may not happen at other levels, however, intermediate results are cached into the memo object.
+ * a recursive call will check the memo to see if a similar call has been evaluated,therefore, worst-case scenario
+ * branching factor is n (there will be n * m nodes)
+ * 
+ * time complexity is O(n*m) and space complexity is O(m)
+ * 
+*/
