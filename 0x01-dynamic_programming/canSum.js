@@ -60,8 +60,7 @@
  *      1. return `true` IFF targetSum = 0
  *      2. return `false` if targetSum is:
  *          a. less than the least member of the array or
- *          b. less than zero or
- *          c. greater than zero
+ *          b. less than zero
  *      3. return `true` to a parent if at least one child is `true`
  */
 
