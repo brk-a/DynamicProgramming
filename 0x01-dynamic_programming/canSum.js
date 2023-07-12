@@ -132,7 +132,7 @@ arr.forEach(obj => {
     console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${canSum(obj.targetSum, obj.numbers)}`);
 })
 
-/**canSum has exponential time complexity and constant space complexity
+/**canSum has exponential time complexity and linear space complexity
  * 
  * let m be the target sum and n be the length of the array of candidates
  * 
@@ -169,7 +169,7 @@ arr.forEach(obj => {
     console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${canSumMemo(obj.targetSum, obj.numbers)}`);
 })
 
-/**canSumMemo has constant time complexity and constant space complexity
+/**canSumMemo has constant time complexity and linear space complexity
  * 
  * let m be the target sum and n be the length of the array of candidates
  * 

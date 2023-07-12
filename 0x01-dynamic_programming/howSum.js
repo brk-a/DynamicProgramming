@@ -127,7 +127,7 @@ arr.forEach(obj => {
     console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${howSum(obj.targetSum, obj.numbers)}`);
 })
 
-/**howSum has exponential time complexity and constant space complexity
+/**howSum has exponential time complexity and linear space complexity
  * 
  * let m be the target sum and n be the length of the array of candidates
  * 
@@ -147,3 +147,54 @@ arr.forEach(obj => {
  * time complexity is O((n^m) * m) and space complexity is O(m)
  * 
 */
+
+const howSumMemo = (targetSum, numbers, memo={}) => {
+    if (!numbers ||!Array.isArray(numbers)) return null
+
+    if(targetSum in memo) return memo[targetSum] 
+    if(targetSum===0) return []
+    if(targetSum<0) return null
+
+    for(let i of numbers){
+        const remainder = targetSum - i
+        const remainderResult = howSumMemo(remainder, numbers, memo)
+
+        if(remainderResult!==null){
+            memo[targetSum] = [...remainderResult, i]
+            return memo[targetSum]
+        }
+    }
+
+    memo[targetSum] = null
+    return null
+}
+
+arr.forEach(obj => {
+    console.log(`input: (${obj.targetSum}, [${obj.numbers}]): return: ${howSumMemo(obj.targetSum, obj.numbers)}`);
+})
+
+/**
+ * howSumMemo has quadratic time and space complexity
+ * 
+ * #recursive calls are the same as howSum -> n*m.
+ * each recursive call requires a copy operation (spread the array and add a new member).
+ * array will be, at most, m elements long.
+ * (n*m) recursive calls each making m copy ops equals (n*m*m) or n*(m^2)
+ * 
+ * keys of memo obj are all the unique values of `targetSum`; value can be  null or an array.
+ * max length of an array is m.
+ * m keys with values of length m, at worst, equals (m*m) or (m^2) max space required 
+ * 
+ * time complexity is O(n*(m^2)) and space complexity is O(m^2)
+ * 
+ * recall, for howSum: time complexity is O((n^m) * m) and space complexity is O(m)
+ * trade-offs
+ *      1. time: decreased complexity from exponential to quadratic
+ *      2. space: increased complexity from linear to quadratic 
+ *      3. overall: the algo is quicker but requires more memory
+ * 
+ * insights:
+ *      1. prefer the memoised algo to the brute force, overall
+ *      2. pick the brute force algo when you are not in a hurry and have limited memory
+ *      3. pick the memoised algo when you are in a hurry and have memory to spare
+ */
