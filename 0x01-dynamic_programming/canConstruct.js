@@ -123,3 +123,73 @@ arr = [
 arr.forEach(obj => {
     console.log(`input: ${obj.target}: return: ${canConstruct(obj.target, obj.wordBank)}`);
 })
+
+/**
+ * let m =  target.length and n = wordBank.length
+ * 
+ * time complexity will be predicted by the #nodes in tree; space
+ * complexity will be predicted by height of tree
+ * 
+ * canConstruct has exponential time complexity and quadratic space complexity
+ * 
+ * height of tree in worst-case scenario is the length of target, m
+ * 
+ * branching factor is affected by #words in wordBank; in other words, n
+ * worst-case scenario: every element of wordBank appears at the beginning of
+ * target; the number of branches will be n
+ * assume worst-case scenario branching for subsequent nodes; this means multiply n
+ * by itsels m times, or (n^m)
+ * 
+ * the  `slice` op on `target`: requires that target be iterated on. worst-case scenario
+ * is the same as height of the tree, m
+ * 
+ * time complexity is O((n^m) * m) and space complexity is O(m^2)
+ */
+
+const canConstructMemo = (target, wordBank, memo={}) => {
+    if(target in memo) return memo[target]
+    if(target==='') return true
+
+    for(let i of wordBank){
+        if(target.indexOf(i)===0){
+            const remainder = target.slice(i.length)
+            if(canConstruct(remainder, wordBank, memo)===true){
+                memo[target] = true
+                return true
+            }
+        }
+    }
+
+    memo[target] = false
+    return false
+}
+
+arr.forEach(obj => {
+    console.log(`input: ${obj.target}: return: ${canConstructMemo(obj.target, obj.wordBank)}`);
+})
+
+/**
+ * canConstructMemo has quadratic time and space complexity
+ * 
+ * #recursive calls are the same as canConstruct -> n*m.
+ * each recursive call requires a slice operation.
+ * array will be, at most, m elements long.
+ * (n*m) recursive calls each making m slice ops equals (n*m*m) or n*(m^2)
+ * 
+ * keys of memo obj are all the unique values of `target`.
+ * max length of an array is m.
+ * m keys with values of length m, at worst, equals (m*m) or (m^2) max space required 
+ * 
+ * time complexity is O(n*(m^2)) and space complexity is O(m^2)
+ * 
+ * recall, for canConstruct: time complexity is O((n^m) * m) and space complexity is O(m)
+ * trade-offs
+ *      1. time: decreased complexity from exponential to quadratic
+ *      2. space: increased complexity from linear to quadratic 
+ *      3. overall: the algo is quicker but requires more memory
+ * 
+ * insights:
+ *      1. prefer the memoised algo to the brute force, overall
+ *      2. pick the brute force algo when you are not in a hurry and have limited memory
+ *      3. pick the memoised algo when you are in a hurry and have memory to spare
+ */
