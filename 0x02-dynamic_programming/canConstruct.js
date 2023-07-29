@@ -151,19 +151,16 @@
  * while performing n operations on each. also, we have to choose the elements of `wordBank`
  * that match the next element of the string `target`; worst-case length of the next matching
  * element is m. time complexity is O((m^2)*n)
+ * m
  * 
- * height of tree in worst-case scenario is the length of target, m
- * 
- * branching factor is affected by #words in wordBank; in other words, n
+ * #ops performed per iteration/pass depends on #words in wordBank; in other words, n
  * worst-case scenario: every element of wordBank appears at the beginning of
- * target; the number of branches will be n
- * assume worst-case scenario branching for subsequent nodes; this means multiply n
- * by itsels m times, or (n^m)
+ * target; the number of ops will be n
  * 
  * the  `slice` op on `target`: requires that target be iterated on. worst-case scenario
- * is the same as height of the tree, m
+ * is the same as size of table, m
  * 
- * time complexity is O((n^m) * m) and space complexity is O(m^2)
+ * time complexity is O((m^2) * n) and space complexity is O(m^2)
  */
 
 const canConstruct = (target, wordBank) => {
