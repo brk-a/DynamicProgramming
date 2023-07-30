@@ -34,7 +34,7 @@
  */
 
 /**
- * take countConstruct('', ['oh,'for ',', 'fox', 'sake', '!'])
+ * take countConstruct('', ['oh, ', 'for', 'fox', 'sake', '!'])
  * 
  * target is an empty string; no way to construct an empty string
  * from an array of non-empty strings
