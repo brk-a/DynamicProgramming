@@ -26,6 +26,8 @@ arr = [-1, 0, 1, 3, 5, 10, 20, 100 ]
 # for i in arr:
 #     print(f"n = {i}: fib({i}) = {fib(i)}")
 
+# O(n) space complexity and O(2^n) time complexity
+
 #########################################################################
 
 # Method 2: Memoisation
@@ -43,8 +45,10 @@ def fibMemo(n, memo={}):
     memo[n] = fibMemo(n-1, memo) + fibMemo(n-2, memo)
     return memo[n]
 
-# for i in arr:
-#     print(f"n = {i}: fibMemo({i}) = {fibMemo(i)}")
+for i in arr:
+    print(f"n = {i}: fibMemo({i}) = {fibMemo(i)}")
+
+# O(n) space complexity and O(n) time complexity
 
 #########################################################################
 
@@ -69,5 +73,7 @@ def fibTab(n):
 
 for i in arr:
     print(f"n = {i}: fibTab({i}) = {fibTab(i)}")
+
+# O(n) space complexity and O(2^n) time complexity
 
 #########################################################################
