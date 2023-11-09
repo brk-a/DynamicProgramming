@@ -18,7 +18,7 @@ namespace ZeroOneKnapsackSolution
             int[,] memo - new int[5, 13];
 
             const int n = 4;
-            const int loadCap = 12;
+            const int loadCap = 10;
 
             for(int i=0; i<=n; i++)
             {
@@ -28,15 +28,21 @@ namespace ZeroOneKnapsackSolution
                     {
                         memo[i, j] = 0;
                     }
-                    else if(masses[i]<=loadCap)
+                    else if(masses[i]<=j)
                     {
                         memo[i, j] = Math.Max(
-                            values[i] + memo[i-1, loadCap - masses[i]],
-                            memo[i-1, loadCap]
+                            values[i] + memo[i-1, j-masses[i]],
+                            memo[i-1, j]
                         );
+                    }
+                    else
+                    {
+                        memo[i, j] = memo[i, j-1];
                     }
                 }
             }
+            Console.WriteLine($"Max value of items included in container: {memo[i, j]}");
+            Console.ReadKey();
         }
     }
 }
