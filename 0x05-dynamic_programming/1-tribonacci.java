@@ -32,8 +32,8 @@ class Source{
     public static void main(String[] args){
         int[] arr = {0, 1, 3, 5, 10, 15, 50, 100};
         for(int i: arr){
-            int res = tribonacciMemo(i);
-            String message = MessageFormat.format("fib({0}) is {1}", i, result);
+            int result = tribonacciMemo(i);
+            String message = MessageFormat.format("trib({0}) is {1}", i, result);
             System.out.println(message);
         }
     }
