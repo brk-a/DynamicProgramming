@@ -40,7 +40,7 @@ class Source{
         int[] arr = {0, 1, 3, 5, 10, 15, 50, 100};
         for(int i: arr){
             int result = sumPossibleMemo(i, arr);
-            String message = MessageFormat.format("sumPossible({0}) is {1}", i, result);
+            String message = MessageFormat.format("sumPossibleMemo({0}) is {1}", i, result);
             System.out.println(message);
         }
     }
