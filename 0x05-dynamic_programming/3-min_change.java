@@ -1,4 +1,4 @@
-import java.utils.HashMap;
+import java.util.HashMap;
 import java.util.List;
 
 class Source{
@@ -46,7 +46,7 @@ class Source{
     }
 
     public static void main(String[] args)(){
-        int[] arr = {0, 1, 3, 5, 10, 15, 50, 100};
+        int[] arr = {0, 1, 5, 10, 20, 50, 100};
         for(int i: arr){
             int result = sumPossibleMemo(i, arr);
             String message = MessageFormat.format("minchangeMemo({0}) is {1}", i, result);

@@ -1,4 +1,4 @@
-import java.utils.HashMap;
+import java.util.HashMap;
 
 class Source{
     public static int tribonacciRecursive(int n){
