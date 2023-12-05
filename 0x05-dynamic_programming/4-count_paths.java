@@ -42,15 +42,12 @@ class Source{
             {"O", "X", "O", "0", "O"},
         };
         
-        for(int i: arr){
-            int result = countPathsRecursive(arr);
-            String message = MessageFormat.format("countPathsRecursive({0}) is {1}", i, result);
-            System.out.println(message);
-        }
-        for(int i: arr){
-            int result = countPathsMemo(arr);
-            String message = MessageFormat.format("countPathsMemo({0}) is {1}", i, result);
-            System.out.println(message);
-        }
+        int result = countPathsRecursive(arr);
+        String message = MessageFormat.format("countPathsRecursive({0}) is {1}", i, result);
+        System.out.println(message);
+        
+        int result = countPathsMemo(arr);
+        String message = MessageFormat.format("countPathsMemo({0}) is {1}", i, result);
+        System.out.println(message);
     }
 }
