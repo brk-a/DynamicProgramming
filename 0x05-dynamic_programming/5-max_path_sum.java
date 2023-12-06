@@ -39,11 +39,11 @@ class Source{
         };
         
         int result = maxPathSumRecursive(arr);
-        String message = MessageFormat.format("maxPathSumRecursive({0}) is {1}", i, result);
+        String message = MessageFormat.format("maxPathSumRecursive({0}) is {1}", arr, result);
         System.out.println(message);
 
         int result = maxPathSumMemo(arr);
-        String message = MessageFormat.format("maxPathSumMemo({0}) is {1}", i, result);
+        String message = MessageFormat.format("maxPathSumMemo({0}) is {1}", arr, result);
         System.out.println(message);
     }
 }
